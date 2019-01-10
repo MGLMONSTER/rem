@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=750, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <title>鄂尔多斯智慧党建</title>
+</head>
+
+<body>
+    <div id='loadingDiv'>加载中,请稍后...</div>
+    <div id="box">
+        <!-- 顶部选项卡   课程分类以及答题测试 -->
+        <div class="top">
+            <!-- <div class="top_tab_box">
+                <div class="top_tab top_now">课程分类</div>
+                <div class="top_tab">答题测试</div>
+            </div> -->
+            <!-- 筛选列表 -->
+            <div class="top_tab_list">
+                <ul id="tabList" class="tab_list">
+                    <li id="all" class="current">全部</li>
+                    <!-- <li>两学一做</li>
+                    <li>四个全面</li>
+                    <li>反腐倡廉</li>
+                    <li>重要讲话</li>
+                    <li>微课堂</li>
+                    <li>党性教育</li>
+                    <li>工作交流</li>
+                    <li>政策法规</li>
+                    <li>道德教育</li> -->
+                </ul>
+            </div>
+        </div>
+
+        <!-- 分割线 -->
+        <!-- <div class="cut_line"></div> -->
+
+        <!-- 四个按钮 -->
+        <ul class="fourBtn_box">
+            <li id="latest">
+                <img src="img/zuixin.png" alt="">
+                <span>最新</span>
+            </li>
+            <li id="highMark">
+                <img src="img/zuigaofen.png" alt="">
+                <span>高分</span>
+            </li>
+            <li id="optional">
+                <img src="img/zixuan.png" alt="">
+                <span>自选</span>
+            </li>
+            <li id="willChoose">
+                <img src="img/bixuanxiangmu.png" alt="">
+                <span>必选</span>
+            </li>
+        </ul>
+
+        <!-- 课程列表 -->
+        <ul id="C_list" class="C_list">
+            <!-- <li>
+                <div class="imgBox">
+                    <img src="" alt="">
+                </div>
+                <div class="r_side">
+                    <p class="C_title">3-党建引领小康路</p>
+                    <p class="scoreBox">
+                        <span class="score">积分: 10分</span>
+                        <span class="studyNum">学习人数: 16人</span>
+                    </p>
+                    <p class="good">好好学习,多多赚积分!</p>
+                </div>
+            </li> -->
+
+        </ul>
+
+        
+    </div>
+    <!-- 错误页 -->
+    <div id="error">
+        <img src="img/error.gif" alt="">
+        <p id="refreshBtn">
+            点&nbsp;击&nbsp;刷&nbsp;新
+        </p>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script>
+
+
+        //获取用户名和密码
+        function GetToken(username, password) {
+            // alert("-----------------1");
+            login(username, password);
+            // alert("-----------------"+username);
+            // alert("-----------------"+password);
+
+        }
+        GetToken("admin", "zhihuidangjian888");
+
+
+
+        function login(username, password) {
+            // alert("-----------2")
+            var username = username;
+            var password = password;
+            //  alert(username);
+            //  alert(password);
+            localStorage.setItem('username', JSON.stringify(username));
+            localStorage.setItem('password', JSON.stringify(password));
+            //  alert("login"+ username);
+            //  alert("login"+password);
+            //登录接口
+            ajax(
+                "POST",
+                url + "/api/auth/oauth/token",
+                "json",
+                {
+                    "username": username,
+                    "password": password,
+                    "grant_type": "password"
+                },
+                "application/x-www-form-urlencoded",
+                "Basic dnVlOnZ1ZQ==",
+                true,
+                function (data) {           //successFn
+                    var token = data.access_token;
+                    //  alert(data)
+
+                    //全部视频
+                    ajax(
+                        "GET",
+                        url + "/api/onlinestudy/osCourseVideo/selectCourseList?page=1&limit=10&courseType=0&commendType=0&selectType=0&order=create_time",
+                        "json",
+                        null,
+                        "application/x-www-form-urlencoded",
+                        "Bearer " + token,
+                        true,
+                        function (data) {    //successFn
+                            // alert(data)
+                            var C_list = document.getElementById("C_list");
+                            var listItem = data.data.rows;
+                            for (var i = 0; i < listItem.length; i++) {
+                                var aLi = document.createElement("li");
+                                aLi.setAttribute("courseId",listItem[i].courseId);
+                                aLi.innerHTML =
+                                    "<div class='imgBox'>"
+                                    + "<img src='" + listItem[i].coursePic + "'/>"
+                                    + "</div>"
+                                    + "<div class='r_side'>"
+                                    + "<p class='C_title'>" + listItem[i].courseName + "</p>"
+                                    + "<p class='scoreBox'>"
+                                    + "<span class='score'>积分:" + listItem[i].courseIntegral + "分" + "</span>"
+                                    + "<span class='studyNum'>学习人数:" + listItem[i].studyNum + "人" + "</span>"
+                                    + "</p>"
+                                    // + "<p class='good'>好好学习,多多赚积分!</p>"
+                                    + "</div>";
+                                $(document).on("click", "#C_list>li", function () {
+                                    var index = $("#C_list>li").index(this);
+                                    window.location.href = "video.html?courseId=" + listItem[index].courseId;
+                                })
+                                C_list.appendChild(aLi);
+                            }
+                        },
+
+                    )
+
+
+                    //筛选列表
+                    ajax(
+                        "GET",
+                        url + "/api/dict/dictValue/type/os_dict_video_course",
+                        "json",
+                        null,
+                        "application/x-www-form-urlencoded",
+                        "Bearer " + token,
+                        true,
+                        function (data) {
+                            var tabList = document.getElementById("tabList");
+                            // console.log(data.data.rows);
+                            var listItem = data.data.rows;
+                            // 筛选按钮
+                            for (var i = 0; i < listItem.length; i++) {
+                                aLi = document.createElement("li");
+                                aLi.setAttribute("index", listItem[i].orderNum);
+                                aLi.innerHTML = listItem[i].labelDefault;
+                                tabList.appendChild(aLi);
+                                $(document).on('click', '#tabList>li', function () {
+                                    // var index = $('#tabList>li').index(this);
+                                    var index = $(this).attr("index");
+                                    $("#tabList>li").removeClass("current");
+                                    $(this).addClass("current");
+                                    $(".fourBtn_box li").removeClass("active");
+                                    console.log(index);
+                                    // return;
+                                    ajax(
+                                        "GET",
+                                        url + "/api/onlinestudy/osCourseVideo/selectCourseList?page=1&limit=10&courseType=" + index + "&commendType=0&selectType=0&order=create_time",
+                                        "json",
+                                        null,
+                                        "application/x-www-form-urlencoded",
+                                        "Bearer " + token,
+                                        true,
+                                        function (data) {
+                                            var C_list = document.getElementById("C_list");
+                                            C_list.innerHTML = "";
+                                            // console.log(data.data.rows);
+                                            var selItem = data.data.rows;
+                                            for (var i = 0; i < selItem.length; i++) {
+                                                var aLi = document.createElement("li");
+                                                aLi.setAttribute("courseId",selItem[i].courseId);
+                                                aLi.innerHTML =
+                                                    "<div class='imgBox'>"
+                                                    + "<img src='" + selItem[i].coursePic + "'/>"
+                                                    + "</div>"
+                                                    + "<div class='r_side'>"
+                                                    + "<p class='C_title'>" + selItem[i].courseName + "</p>"
+                                                    + "<p class='scoreBox'>"
+                                                    + "<span class='score'>积分:" + selItem[i].courseIntegral + "分" + "</span>"
+                                                    + "<span class='studyNum'>学习人数:" + selItem[i].studyNum + "人" + "</span>"
+                                                    + "</p>"
+                                                    // + "<p class='good'>好好学习,多多赚积分!</p>"
+                                                    + "</div>";
+                                                $(document).on("click", "#C_list>li", function () {
+                                                    var index = $("#C_list>li").index(this);
+                                                    window.location.href = "video.html?courseId=" + selItem[index].courseId;
+                                                })
+                                                C_list.appendChild(aLi);
+                                            }
+                                        }
+                                    )
+                                })
+                            }
+
+                        },
+                    )
+
+                    // 最新  高分  自选  必选 
+                    var latest = document.getElementById("latest");
+                    var highMark = document.getElementById("highMark");
+                    var optional = document.getElementById("optional");
+                    var willChoose = document.getElementById("willChoose");
+
+                    //最新
+                    latest.onclick = function () {
+                        $(".fourBtn_box li").removeClass("active");
+                        $("#tabList>li").removeClass("current");
+                        $(this).addClass("active");
+                        ajax(
+                            "GET",
+                            url + "/api/onlinestudy/osCourseVideo/selectCourseList?page=1&limit=10&courseType=6&commendType=0&selectType=0&order=create_time",
+                            "json",
+                            null,
+                            "application/x-www-form-urlencoded",
+                            "Bearer " + token,
+                            true,
+                            function (data) {   //successFn
+                                var C_list = document.getElementById("C_list");
+                                C_list.innerHTML = "";
+                                // console.log(data.data.rows);
+                                var selItem = data.data.rows;
+                                for (var i = 0; i < selItem.length; i++) {
+                                    var aLi = document.createElement("li");
+                                    aLi.setAttribute("courseId",selItem[i].courseId);
+                                    aLi.innerHTML =
+                                        "<div class='imgBox'>"
+                                        + "<img src='" + selItem[i].coursePic + "'/>"
+                                        + "</div>"
+                                        + "<div class='r_side'>"
+                                        + "<p class='C_title'>" + selItem[i].courseName + "</p>"
+                                        + "<p class='scoreBox'>"
+                                        + "<span class='score'>积分:" + selItem[i].courseIntegral + "分" + "</span>"
+                                        + "<span class='studyNum'>学习人数:" + selItem[i].studyNum + "人" + "</span>"
+                                        + "</p>"
+                                        // + "<p class='good'>好好学习,多多赚积分!</p>"
+                                        + "</div>";
+                                    $(document).on("click", "#C_list>li", function () {
+                                        var index = $("#C_list>li").index(this);
+                                        window.location.href = "video.html?courseId=" + selItem[index].courseId;
+                                    })
+                                    C_list.appendChild(aLi);
+                                }
+                            },
+
+                        )
+                    }
+
+                    //高分
+                    highMark.onclick = function () {
+                        $(".fourBtn_box li").removeClass("active");
+                        $("#tabList>li").removeClass("current");
+                        $(this).addClass("active");
+                        ajax(
+                            "GET",
+                            url + "/api/onlinestudy/osCourseVideo/selectCourseList?page=1&limit=10&courseType=6&commendType=0&selectType=0&order=course_integral",
+                            "json",
+                            null,
+                            "application/x-www-form-urlencoded",
+                            "Bearer " + token,
+                            true,
+                            function (data) {   //successFn
+                                var C_list = document.getElementById("C_list");
+                                C_list.innerHTML = "";
+                                // console.log(data.data.rows);
+                                var selItem = data.data.rows;
+                                for (var i = 0; i < selItem.length; i++) {
+                                    var aLi = document.createElement("li");
+                                    aLi.setAttribute("courseId",selItem[i].courseId);
+                                    aLi.innerHTML =
+                                        "<div class='imgBox'>"
+                                        + "<img src='" + selItem[i].coursePic + "'/>"
+                                        + "</div>"
+                                        + "<div class='r_side'>"
+                                        + "<p class='C_title'>" + selItem[i].courseName + "</p>"
+                                        + "<p class='scoreBox'>"
+                                        + "<span class='score'>积分:" + selItem[i].courseIntegral + "分" + "</span>"
+                                        + "<span class='studyNum'>学习人数:" + selItem[i].studyNum + "人" + "</span>"
+                                        + "</p>"
+                                        // + "<p class='good'>好好学习,多多赚积分!</p>"
+                                        + "</div>";
+                                    $(document).on("click", "#C_list>li", function () {
+                                        var index = $("#C_list>li").index(this);
+                                        window.location.href = "video.html?courseId=" + selItem[index].courseId;
+                                    })
+                                    C_list.appendChild(aLi);
+                                }
+                            },
+
+                        )
+                    }
+
+
+                    //自选
+                    optional.onclick = function () {
+                        $(".fourBtn_box li").removeClass("active");
+                        $("#tabList>li").removeClass("current");
+                        $(this).addClass("active");
+                        ajax(
+                            "GET",
+                            url + "/api/onlinestudy/osCourseVideo/selectCourseList?page=1&limit=10&courseType=6&commendType=0&selectType=0&order=course_integral",
+                            "json",
+                            null,
+                            "application/x-www-form-urlencoded",
+                            "Bearer " + token,
+                            true,
+                            function (data) {   //successFn
+                                var C_list = document.getElementById("C_list");
+                                C_list.innerHTML = "";
+                                // console.log(data.data.rows);
+                                var selItem = data.data.rows;
+                                for (var i = 0; i < selItem.length; i++) {
+                                    var aLi = document.createElement("li");
+                                    aLi.setAttribute("courseId",selItem[i].courseId);
+                                    aLi.innerHTML =
+                                        "<div class='imgBox'>"
+                                        + "<img src='" + selItem[i].coursePic + "'/>"
+                                        + "</div>"
+                                        + "<div class='r_side'>"
+                                        + "<p class='C_title'>" + selItem[i].courseName + "</p>"
+                                        + "<p class='scoreBox'>"
+                                        + "<span class='score'>积分:" + selItem[i].courseIntegral + "分" + "</span>"
+                                        + "<span class='studyNum'>学习人数:" + selItem[i].studyNum + "人" + "</span>"
+                                        + "</p>"
+                                        // + "<p class='good'>好好学习,多多赚积分!</p>"
+                                        + "</div>";
+                                    $(document).on("click", "#C_list>li", function () {
+                                        var index = $("#C_list>li").index(this);
+                                        window.location.href = "video.html?courseId=" + selItem[index].courseId;
+                                    })
+                                    C_list.appendChild(aLi);
+                                }
+                            },
+
+                        )
+                    }
+
+
+                    //必选
+                    willChoose.onclick = function () {
+                        $(".fourBtn_box li").removeClass("active");
+                        $("#tabList>li").removeClass("current");
+                        $(this).addClass("active");
+                        ajax(
+                            "GET",
+                            url + "/api/onlinestudy/osCourseVideo/selectCourseList?page=1&limit=10&courseType=6&commendType=0&selectType=1&order=course_integral",
+                            "json",
+                            null,
+                            "application/x-www-form-urlencoded",
+                            "Bearer " + token,
+                            true,
+                            function (data) {    //successFn
+                                var C_list = document.getElementById("C_list");
+                                C_list.innerHTML = "";
+                                // console.log(data.data.rows);
+                                var selItem = data.data.rows;
+                                for (var i = 0; i < selItem.length; i++) {
+                                    var aLi = document.createElement("li");
+                                    aLi.setAttribute("courseId",selItem[i].courseId);
+                                    aLi.innerHTML =
+                                        "<div class='imgBox'>"
+                                        + "<img src='" + selItem[i].coursePic + "'/>"
+                                        + "</div>"
+                                        + "<div class='r_side'>"
+                                        + "<p class='C_title'>" + selItem[i].courseName + "</p>"
+                                        + "<p class='scoreBox'>"
+                                        + "<span class='score'>积分:" + selItem[i].courseIntegral + "分" + "</span>"
+                                        + "<span class='studyNum'>学习人数:" + selItem[i].studyNum + "人" + "</span>"
+                                        + "</p>"
+                                        // + "<p class='good'>好好学习,多多赚积分!</p>"
+                                        + "</div>";
+                                    $(document).on("click", "#C_list>li", function () {
+                                        var index = $("#C_list>li").index(this);
+                                        window.location.href = "video.html?courseId=" + selItem[index].courseId;
+                                    })
+                                    C_list.appendChild(aLi);
+                                }
+                            },
+
+                        )
+                    }
+
+
+                    //全部
+                    var all = document.getElementById("all");
+                    all.onclick = function () {
+                        $(".fourBtn_box li").removeClass("active");
+                        //全部视频
+                        ajax(
+                            "GET",
+                            url + "/api/onlinestudy/osCourseVideo/selectCourseList?page=1&limit=10&courseType=0&commendType=0&selectType=0&order=create_time",
+                            "json",
+                            null,
+                            "application/x-www-form-urlencoded",
+                            "Bearer " + token,
+                            true,
+                            function (data) {    //successFn
+                                // alert(data)
+                                var C_list = document.getElementById("C_list");
+                                C_list.innerHTML = "";
+                                // console.log(data.data.rows);
+                                var listItem = data.data.rows;
+                                for (var i = 0; i < listItem.length; i++) {
+                                    var aLi = document.createElement("li");
+                                    aLi.setAttribute("courseId",listItem[i].courseId);
+                                    aLi.innerHTML =
+                                        "<div class='imgBox'>"
+                                        + "<img src='" + listItem[i].coursePic + "'/>"
+                                        + "</div>"
+                                        + "<div class='r_side'>"
+                                        + "<p class='C_title'>" + listItem[i].courseName + "</p>"
+                                        + "<p class='scoreBox'>"
+                                        + "<span class='score'>积分:" + listItem[i].courseIntegral + "分" + "</span>"
+                                        + "<span class='studyNum'>学习人数:" + listItem[i].studyNum + "人" + "</span>"
+                                        + "</p>"
+                                        // + "<p class='good'>好好学习,多多赚积分!</p>"
+                                        + "</div>";
+                                    $(document).on("click", "#C_list>li", function () {
+                                        var index = $("#C_list>li").index(this);
+                                        window.location.href = "video.html?courseId=" + listItem[index].courseId;
+                                    })
+                                    C_list.appendChild(aLi);
+                                }
+                            },
+
+                        )
+                    }
+                },
+                function (data) {
+                    // alert("错误码:" + data.status);
+                    if(data.status==0){
+                        var Error = document.getElementById("error");
+                        var refreshBtn = document.getElementById("refreshBtn")
+                        Error.style.display = "block";
+                        refreshBtn.onclick = function(){
+                            GetToken();
+                        }
+                    }
+                }
+            )
+        }
+
+        // 显示loading。
+        $(document).ajaxStart(function () {
+            $("#loadingDiv").show();
+        });
+
+
+        // 隐藏loading。
+        $(document).ajaxComplete(function () {
+            $("#loadingDiv").fadeOut("fast");
+        });
+
+
+
+    </script>
+</body>
+
+</html>

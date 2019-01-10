@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=750, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/rank.css">
+  <script src="js/jquery-1.8.3.min.js"></script>
+  <title>答题排行榜</title>
+</head>
+<body>
+  <div id="rankBox">
+    <!-- 选项卡 -->
+    <div class="tabBox">
+      <div class="tabBtn active">个人</div>
+      <div class="tabBtn">党支部</div>
+    </div>
+    <!-- 排行榜列表 -->
+    <ul class="rankList">
+      <li>
+        <div class="imgBox">
+          <!-- <img src="" alt=""> -->
+          <p class="rankNum">1</p>
+        </div>
+        <div class="nameBox">
+          <p id="name" class="name">万晓梅</p>
+          <p class="score">470分</p>
+        </div>
+        <div class="topicBox">
+          <div class="rightTopic">
+            <img src="img/u170.png" alt="">
+            <span class="rightTxt">94题</span>
+          </div>
+          <div class="wrongTopic">
+            <img src="img/u173.png" alt="">
+            <span class="wrongTxt">81题</span>
+          </div>
+        </div>
+        <div class="AqInfo">
+          <p>
+            <span>答题次数: 5次</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span>最近答题时间: 2018/09/07 09:08:08</span>
+          </p>
+          <p>
+            <span>平均用时:3439秒</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span>更新时间:2018/09/07 09:08:08</span>
+          </p>
+        </div>
+
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    window.onload = function(){
+      //调整名字的字体大小
+      $(function(){
+        var Name = document.getElementById("name");
+        if(Name.innerText.length>=4){
+          Name.style.fontSize = 16 + "px";
+        }
+      })
+
+      $(function(){
+
+      })
+    }
+  </script>
+</body>
+</html>

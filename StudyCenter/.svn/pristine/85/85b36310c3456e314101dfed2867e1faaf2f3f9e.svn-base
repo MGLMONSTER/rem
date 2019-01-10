@@ -1,0 +1,114 @@
+#mineBox{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+/* 顶部学习信息 */
+.studyInfo{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    display: flex;
+    margin-top: 50px;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+}
+.studyInfo li{
+    width: 20%;
+    height: auto;
+    overflow: hidden;
+}
+.studyInfo li .num{
+    width: 100%;
+    height: 140px;
+    box-sizing: border-box;
+    border: 1px solid #000000;
+    background-color: rgb(242,242,242);
+    font-size: 40px;
+    border-radius: 100px;
+    line-height: 140px;
+    text-align: center;
+}
+.studyInfo li .time{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.studyInfo li .already{
+    width: 100%;
+    height: 60px;
+    border-radius: 60px;
+    border: 1px solid #999999;
+    text-align: center;
+    line-height: 60px;
+    box-sizing: border-box;
+    margin-top: 20px;
+}
+/* 分割线 */
+.cutLine{
+    width: 90%;
+    height: 10px;
+    margin: 30px auto;
+    background-color: #cccccc;
+    box-shadow: 5px 5px 10px #666666;
+}
+/* 我的课程 */
+.mineClass{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+}
+.mineClass .m_title{
+    width: 100%;
+    height: 60px;
+    border-bottom: 1px solid #000000;
+    box-sizing: border-box;
+}
+.mineClass .m_title .tit_txt{
+    width: 140px;
+    height: 100%;
+    box-sizing: border-box;
+    border: 1px solid #000000;
+    border-radius: 60px;
+    background-color: #f5f5f5;
+    float: left;
+    text-align: center;
+    line-height: 60px;
+}
+.mineClass .m_title .more{
+    float: right;
+    line-height: 60px;
+}
+.mineClass .m_list{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+.mineClass .m_list li{
+    width: 180px;
+    height: auto;
+    overflow: hidden;
+
+}
+.mineClass .m_list li .imgBox{
+    width: 100%;
+    height: 180px;
+    margin-bottom: 20px;
+    background-color: #000000;
+}
+.mineClass .m_list li .C_name{
+    width: 100%;
+    font-size: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    height: 30px;
+    margin-bottom: 20px;
+}

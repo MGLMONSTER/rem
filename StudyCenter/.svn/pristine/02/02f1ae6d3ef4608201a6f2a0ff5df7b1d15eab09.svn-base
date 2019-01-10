@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=750, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/classMore.css">
+    <title>我的课程</title>
+</head>
+<body>
+    <div id="classBox">
+        <!-- 选项卡 -->
+        <div class="tabBox">
+            <div class="self active">自选课程</div>
+            <div class="self">必修课程</div>
+        </div>
+        <!-- 课程列表 -->
+        <ul class="classList">
+            <li>
+                <div class="imgBox">
+                    <img src="" alt="">
+                </div>
+                <div class="r_side">
+                    
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

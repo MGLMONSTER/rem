@@ -1,0 +1,147 @@
+#classBox{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+    /*padding: 0 10px;*/
+}
+.tabBox{
+    width: 100%;
+    height: 90px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+    margin-top: 30px;
+    position: relative;
+}
+.tabBox .moveBorder{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50%;
+    height: 6px;
+    background-color: #C6262E;
+    border-radius: 3px;
+}
+.tabBox .self{
+    width: 50%;
+    height: 100%;
+    text-align: center;
+    line-height: 90px;
+    font-size: 32px;
+    color:#666666;
+}
+.tabBox .active{
+    color: #C6262E;
+}
+/* 课程列表 */
+.classList{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    margin-top: 20px;
+    display: none;
+    box-sizing: border-box;
+    padding: 0 36px;
+}
+.classList li{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    padding: 40px 0;
+    border-bottom: 1px solid #ABABAB;
+}
+.classList li .imgBox{
+    width: 290px;
+    height: 170px;
+    border-radius: 6px;
+    overflow: hidden;
+    background-color: #000000;
+    float: left;
+    box-sizing: border-box;
+    box-shadow:0px 4px 8px 0px rgba(138,135,135,0.52);
+}
+.classList li .imgBox img{
+    width: 100%;
+    height: 100%;
+}
+.classList li .r_side{
+    width: 363px;
+    height: auto;
+    overflow: hidden;
+    float: right;
+    position: relative;
+}
+.classList li .r_side .C_tit{
+    width: 100%;
+    height: 70px;
+    text-align: center;
+    margin-top: 10px;
+    overflow: hidden;
+    font-size: 28px;
+    color: #666666;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.classList li .r_side .del{
+    position: absolute;
+    right: 0;
+    width: 104px;
+    height: 44px;
+    box-sizing: border-box;
+    top: 46px;
+    border: 2px solid #cccccc;
+    color: #cccccc;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 44px;
+}
+.classList li .r_side .progress{
+    width: 100%;
+    height: auto;
+    color: #ABABAB;
+    margin: 10px 0;
+}
+.classList li .r_side .progress .pro_txt{
+    font-size: 24px;
+}
+.classList li .r_side .progress .pro_bar{
+    width: 224px;
+    height: 6px;
+    display: inline-block;
+    background:rgba(255,232,233,1);
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+    margin: 0 5px;
+}
+.classList li .r_side .progress .pro_bar .pro_inline{
+    /* width: 80%; */
+    height: 100%;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 3px;
+    background-color: #CE4249;
+}
+.classList li .r_side .progress .pro_percent{
+    font-size: 18px;
+    color: #C6262E;
+}
+.classList li .r_side .study{
+    width: 100%;
+    height: 30px;
+    margin-bottom: 10px;
+    color: #cccccc;
+    overflow: hidden;
+}
+.classList li .r_side .study .stu_time{
+    float: left;
+}
+.classList li .r_side .study .getScore{
+    float: right;
+}
+

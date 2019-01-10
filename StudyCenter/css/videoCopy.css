@@ -1,0 +1,175 @@
+html{
+    height: 100%;
+    width: 100%;
+    background-color: #f6f6f6;
+    font-size: 100px;
+}
+body{
+    height: 100%;
+    width: 100%;
+    max-width: 7.5rem;
+    margin: 0 auto;
+    background-color: #f6f6f6;
+    position: relative;
+    
+}
+
+
+#videoBox{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    box-sizing: border-box;
+    background-color: #f7f7f7;
+    font-size: 0.24rem;
+}
+
+.clear{
+    clear: both;
+}
+
+.video{
+    width: 100%;
+    height: 4rem;
+    position: relative;
+}
+.videoItem{
+    width: 100%;
+    height: 100%;
+}
+.video>.videoCover{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background:rgba(1,0,11,1);
+    opacity:0.66;
+}
+.video>.videoCover>img{
+    width: 1.11rem;
+    height: 1.11rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -0.55rem;
+    margin-left: -0.55rem;
+}
+
+/* 详情 */
+.detail{
+    width: 100%;
+    height: 3.46rem;
+    margin: 0.2rem 0;
+    box-sizing: border-box;
+    padding: 0 0.37rem;
+    background-color: #ffffff;
+}
+.detail .detail-Title{
+    width: 100%;
+    height: 1.14rem;
+    box-sizing: border-box;
+    border-bottom: 0.02rem solid #E5E5E5;
+    line-height: 1.14rem;
+    color: #333333;
+    font-size: 0.36rem;
+}
+.detail .courseTitle{
+    width: 100%;
+    color: #666666;
+    font-size: 0.28rem;
+    font-weight: 500;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin: 0.3rem 0;
+}
+.detail .author,.detail .studyNum,.detail .getScore{
+    float: left;
+    margin-right: 0.4rem;
+    color: #ababab;
+}
+.detail p>span{
+    color: #666666;
+}
+.detail .courseLabel{
+    width: 100%;
+    font-size:0.32rem;
+    color: #C6262E;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-top: 0.2rem;
+}
+
+.tipsBox{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    padding: 0 0.36rem;
+}
+.tipsBox .tipsTitle{
+    width: 100%;
+    padding: 0.4rem 0;
+    color: #333333;
+    font-size: 0.36rem;
+}
+.tipsBox .tipsList{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    padding-bottom: 0.4rem;
+}
+.tipsBox .tipsList>li{
+    width: 100%;
+    padding: 0.4rem 0;
+    border-bottom: 0.01rem solid #E5E5E5;
+}
+.tipsBox .tipsList>li .tip_top{
+    width: 100%;
+    height: 0.75rem;
+}
+.tip_top .imgBox,.tip_top .username{
+    float: left;
+    height: 100%;
+    margin-right: 0.4rem;
+}
+.tip_top .imgBox{
+    width: 0.75rem;
+    border-radius: 0.75rem;
+    overflow: hidden;
+}
+.tip_top .imgBox>img{
+    width: 100%;
+    height: 100%;
+}
+.tip_top .username .name{
+    font-size: 0.28rem;
+    font-weight:bold;
+    color: #333333;
+    margin-bottom: 0.1rem;
+}
+.tip_top .username .time{
+    font-size:0.22rem;
+    color: #ababab;
+}
+.tip_top .praise{
+    float: right;
+    height: 100%;
+}
+.tip_top .praise>.praiseNum{
+    font-size: 0.22rem;
+    color: #333333;
+    margin-right: 0.1rem;
+}
+.tip_top .praise>img{
+    display: inline-block;
+}
+/* 评论 */
+.tipsBox .tipsList>li>p{
+    font-size: 0.28rem;
+    color: #333333;
+    margin-top: 0.4rem;
+}

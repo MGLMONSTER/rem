@@ -1,0 +1,61 @@
+#studyH_box{
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  position: relative;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+/* 学习记录列表 */
+.studyH_list{
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  margin-top: 30px;
+}
+.studyH_list li{
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+.studyH_list li .imgBox{
+  width: 200px;
+  height: 170px;
+  float: left;
+  background-color: #000000;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.studyH_list li .imgBox img{
+  width: 100%;
+  height: 100%;
+}
+.studyH_list li .r_side{
+  width: 480px;
+  height: 170px;
+  overflow: hidden;
+  float: right;
+  position: relative;
+}
+.studyH_list li .r_side .S_tit{
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  white-space: wrap;
+  
+}
+.studyH_list li .r_side .continueBtn{
+  width: 200px;
+  height: 40px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 1px solid #000000;
+  text-align: center;
+  line-height: 40px;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  margin-left: -100px;
+  background-color: #f9f9f9;
+}

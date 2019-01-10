@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=750, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <title>鄂尔多斯智慧党建</title>
+</head>
+<body>
+    <div id="box">
+        <!-- 顶部选项卡   课程分类以及答题测试 -->
+        <div class="top">
+            <div class="top_tab_box">
+                <div class="top_tab top_now">课程分类</div>
+                <div class="top_tab">答题测试</div>
+            </div>
+            <!-- 筛选列表 -->
+            <div class="top_tab_list">
+                <ul class="tab_list">
+                    <li class="current">全部</li>
+                    <li>两学一做</li>
+                    <li>四个全面</li>
+                    <li>反腐倡廉</li>
+                    <li>重要讲话</li>
+                    <li>微课堂</li>
+                    <li>党性教育</li>
+                    <li>工作交流</li>
+                    <li>政策法规</li>
+                    <li>道德教育</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 分割线 -->
+        <div class="cut_line"></div>
+
+        <!-- 四个按钮 -->
+        <ul class="fourBtn_box">
+            <li>最新</li>
+            <li>高分</li>
+            <li>自选</li>
+            <li>必选</li>
+        </ul>
+
+        <!-- 课程列表 -->
+        <ul class="C_list">
+            <li>
+                <div class="imgBox">
+
+                </div>
+                <div class="r_side">
+                    <p class="C_title">3-党建引领小康路</p>
+                    <p class="scoreBox">
+                        <span class="score">积分: 10分</span>
+                        <span class="studyNum">学习人数: 16人</span>
+                    </p>
+                    <p class="good">好好学习,多多赚积分!</p>
+                </div>
+            </li>
+            <li>
+                <div class="imgBox">
+
+                </div>
+                <div class="r_side">
+                    <p class="C_title">3-党建引领小康路</p>
+                    <p class="scoreBox">
+                        <span class="score">积分: 10分</span>
+                        <span class="studyNum">学习人数: 16人</span>
+                    </p>
+                    <p class="good">好好学习,多多赚积分!</p>
+                </div>
+            </li>
+            <li>
+                <div class="imgBox">
+
+                </div>
+                <div class="r_side">
+                    <p class="C_title">3-党建引领小康路</p>
+                    <p class="scoreBox">
+                        <span class="score">积分: 10分</span>
+                        <span class="studyNum">学习人数: 16人</span>
+                    </p>
+                    <p class="good">好好学习,多多赚积分!</p>
+                </div>
+            </li>
+        </ul>
+
+
+
+    </div>
+
+    <script>
+        function getToken(token){        
+            var token= json.token;        
+            alert(JSON.stringify(json));        
+        }
+        window.onload = function(){
+            $(function(){
+                $.ajax({
+                    type:"POST",
+                    url:"http://192.168.2.136:8765/api/auth/oauth/token", 
+                    data: JSON.stringify({
+                        "username":"admin",
+                        "password":"123456",
+                        "grant_type":"password",
+                    }),
+                    contentType: "application/x-www-form-urlencoded",
+                    dataType:"json",
+                    async : false,
+                    // headers:{
+                    //     // contentType: "application/x-www-form-urlencoded",
+                    //     // "Authorization": "Basic " + btoa("vue" + ":" + "vue")
+                    //     "Authorization":"Basic dnVlOnZ1ZQ=="
+                    // },
+                    beforeSend: function (XMLHttpRequest) {         		XMLHttpRequest.setRequestHeader("Authorization", "Basic dnVlOnZ1ZQ==")
+                    },
+                    success:function(data){
+                        console.log(data)
+                        $.ajax({
+                            type:"GET",
+                            url:"http://localhost:9527/api/onlinestudy/OsStatistics/getStudyNum",
+                            data:null,
+                            dataType:"json",
+                            success:function(data){
+                                console.log(data)
+                            }
+                        })
+                    }
+                })
+            })
+        }
+    </script>
+</body>
+</html>

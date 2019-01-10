@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=750, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/mineStudy.css">
+    <title>我的学习</title>
+</head>
+<body>
+    <div id="mineBox">
+        <!-- 顶部学习信息 -->
+        <ul class="studyInfo">
+            <li>
+                <div class="num">10</div>
+                <p class="already">已学课程</p>
+            </li>
+            <li>
+                <div class="num">456</div>
+                <p class="already">已学时长</p>
+            </li>
+            <li>
+                <div class="num">38</div>
+                <p class="already">获得积分</p>
+            </li>
+            <li>
+                <div class="num">4</div>
+                <p class="already">发表心得</p>
+            </li>
+        </ul>
+        <!-- 分割线 -->
+        <div class="cutLine"></div>
+        <!-- 我的课程 -->
+        <div class="mineClass">
+            <div class="m_title">
+                <p class="tit_txt">我的课程</p>
+                <p class="more">更多</p>
+            </div>
+            <ul class="m_list">
+                <li>
+                    <div class="imgBox">
+                        <img src="" alt="">
+                    </div>
+                    <p class="C_name">02 科学掌握习近平总书记系列</p>
+                </li>
+                <li>
+                    <div class="imgBox">
+                        <img src="" alt="">
+                    </div>
+                    <p class="C_name">02 科学掌握习近平总书记系列</p>
+                </li>
+                <li>
+                    <div class="imgBox">
+                        <img src="" alt="">
+                    </div>
+                    <p class="C_name">02 科学掌握习近平总书记系列</p>
+                </li>
+            </ul>
+        </div>
+        <!-- 学习记录 -->
+        <div class="mineClass studyHistory">
+            <div class="m_title">
+                <p class="tit_txt">学习记录</p>
+                <p class="more">更多</p>
+            </div>
+            <ul class="m_list">
+                <li>
+                    <div class="imgBox">
+                        <img src="" alt="">
+                    </div>
+                    <p class="C_name">02 科学掌握习近平总书记系列</p>
+                </li>
+                <li>
+                    <div class="imgBox">
+                        <img src="" alt="">
+                    </div>
+                    <p class="C_name">02 科学掌握习近平总书记系列</p>
+                </li>
+                <li>
+                    <div class="imgBox">
+                        <img src="" alt="">
+                    </div>
+                    <p class="C_name">02 科学掌握习近平总书记系列</p>
+                </li>
+                <li>
+                    <div class="imgBox">
+                        <img src="" alt="">
+                    </div>
+                    <p class="C_name">02 科学掌握习近平总书记系列</p>
+                </li>
+                <li>
+                    <div class="imgBox">
+                        <img src="" alt="">
+                    </div>
+                    <p class="C_name">02 科学掌握习近平总书记系列</p>
+                </li>
+                <li>
+                    <div class="imgBox">
+                        <img src="" alt="">
+                    </div>
+                    <p class="C_name">02 科学掌握习近平总书记系列</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

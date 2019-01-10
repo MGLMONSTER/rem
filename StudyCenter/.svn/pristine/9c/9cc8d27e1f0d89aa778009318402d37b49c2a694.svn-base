@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=750, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/studyHistory.css">
+  <script src="js/jquery-1.8.3.min.js"></script>
+  <title>学习记录</title>
+</head>
+
+<body>
+  <div id='loadingDiv'>加载中,请稍后...</div>
+  <div id="studyH_box">
+    <!-- 学习记录列表 -->
+    <ul id="studyH_list" class="studyH_list">
+      <!-- <li>
+        <div class="imgBox">
+          <img src="" alt="">
+        </div>
+        <div class="r_side">
+          <p class="S_tit">
+            02.科学掌握习近平总书记系列重要讲话的思想真谛下
+          </p>
+          <div class="v_info">    
+            <p class="author">作者:学习平台教学</p>
+            <p class="tag">标签:重要讲话</p>
+          </div>
+          <div class="studyInfo">    
+            <p class="studyNum"></p>
+            <p class="score"></p>
+            <p class="already"></p>
+          </div>
+          <p class="continueBtn">继续学习</p>
+        </div>
+      </li> -->
+    </ul>
+
+  </div>
+  <!-- 错误页 -->
+  <div id="error">
+    <img src="img/error.gif" alt="">
+    <p id="refreshBtn">
+      点&nbsp;击&nbsp;刷&nbsp;新
+    </p>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script>
+
+    $(function () {
+      getData();
+    })
+    function getData() {
+
+      var username = JSON.parse(localStorage.getItem('username'));
+      var password = JSON.parse(localStorage.getItem('password'));
+
+      //登录接口
+      ajax(
+        "POST",
+        url + "/api/auth/oauth/token",
+        "json",
+        {
+          "username": username,
+          "password": password,
+          "grant_type": "password"
+        },
+        "application/x-www-form-urlencoded",
+        "Basic dnVlOnZ1ZQ==",
+        function (data) {    //successFn
+          console.log(data);
+          var token = data.access_token;
+          ajax(
+            "GET",
+            url + "/api/onlinestudy/osCourseRecord/selectThreeCourse",
+            "json",
+            null,
+            "application/x-www-form-urlencoded",
+            "Bearer " + token,
+            function (data) {
+              var studyH_list = document.getElementById("studyH_list");
+              console.log(data)
+              var sList = data;
+              for (var i = 0; i < sList.length; i++) {
+                var aLi = document.createElement("li");
+                aLi.innerHTML =
+                  "<div class='imgBox'>" +
+                  "<img src='116.117.157.186:10014" + sList[i].coursePic + "'>" +
+                  "</div>" +
+                  "<div class='r_side'>" +
+                  "<p class='S_tit'>" + sList[i].courseName + "</p>" +
+                  "<p class='continueBtn'>继续学习</p>" +
+                  "</div>";
+                $(document).on("click", "#studyH_list>li", function () {
+                  var index = $("#studyH_list>li").index(this);
+                  window.location.href = sList[index].courseAddress;
+                });
+                studyH_list.appendChild(aLi);
+              }
+            },
+
+          )
+
+        },
+        function (data) {
+          // alert("错误码:" + data.status);
+          if (data.status == 0) {
+            var Error = document.getElementById("error");
+            var refreshBtn = document.getElementById("refreshBtn")
+            Error.style.display = "block";
+            refreshBtn.onclick = function () {
+              getData();
+            }
+          }
+        }
+
+      )
+    }
+
+
+
+    // 显示loading。
+    $(document).ajaxStart(function () {
+      $("#loadingDiv").show();
+    });
+
+
+    // 隐藏loading。
+    $(document).ajaxComplete(function () {
+      $("#loadingDiv").fadeOut("fast");
+    });
+  </script>
+</body>
+
+</html>

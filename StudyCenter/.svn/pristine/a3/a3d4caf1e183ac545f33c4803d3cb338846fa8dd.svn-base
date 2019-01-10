@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=750, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/mineStudy.css">
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <title>我的学习</title>
+</head>
+
+<body>
+    <div id='loadingDiv'>加载中,请稍后...</div>
+    <div id="mineBox">
+        <!-- 顶部学习信息 -->
+        <ul class="studyInfo">
+            <li>
+                <div id="already_C" class="num">0</div>
+                <p class="already">已学课程</p>
+            </li>
+            <li>
+                <div id="already_T" class="num time">0</div>
+                <p class="already">已学时长</p>
+            </li>
+            <li>
+                <div id="getScore" class="num">0</div>
+                <p class="already">获得积分</p>
+            </li>
+            <li>
+                <div id="sendTips" class="num">0</div>
+                <p class="already">发表心得</p>
+            </li>
+        </ul>
+        <!-- 分割线 -->
+        <div class="cutLine"></div>
+        <!-- 我的课程 -->
+        <div class="mineClass">
+            <div class="m_title">
+                <p class="tit_txt">我的课程</p>
+                <i class="more_arrow"></i>
+                <a class="more" href="classMore.html">
+                    更多
+                </a>
+            </div>
+            <ul id="myClass" class="m_list">
+                <!-- <li>
+                    <div class="imgBox">
+                        <img src="" alt="">
+                    </div>
+                    <p class="C_name">02 科学掌握习近平总书记系列</p>
+                </li> -->
+            </ul>
+        </div>
+        <!-- 学习记录 -->
+        <!-- <div class="mineClass studyHistory">
+            <div class="m_title">
+                <p class="tit_txt">学习记录</p>
+                <i class="more_arrow"></i>
+                <a class="more" href="studyHistory.html">更多</a>
+            </div>
+            <ul id="studyHistory" class="m_list">
+                <li>
+                    <div class="imgBox">
+                        <img src="" alt="">
+                    </div>
+                    <p class="C_name">02 科学掌握习近平总书记系列</p>
+                </li>
+            </ul>
+        </div> -->
+
+    </div>
+    <!-- 错误页 -->
+    <div id="error">
+        <img src="img/error.gif" alt="">
+        <p id="refreshBtn">
+            点&nbsp;击&nbsp;刷&nbsp;新
+        </p>
+    </div>
+
+    <script src="js/common.js"></script>
+    <script>
+
+        $(function(){
+            getData();
+        })
+
+        function getData() {
+
+            //已学课程
+            var already_C = document.getElementById("already_C");
+            //已学时长
+            var already_T = document.getElementById("already_T");
+            //获得积分
+            var getScore = document.getElementById("getScore");
+            //发表心得
+            var sendTips = document.getElementById("sendTips");
+
+            var username = JSON.parse(localStorage.getItem('username'));
+            var password = JSON.parse(localStorage.getItem('password'));
+
+            //登录接口
+            ajax(
+                "POST",
+                url + "/api/auth/oauth/token",
+                "json",
+                {
+                    "username": username,
+                    "password": password,
+                    "grant_type": "password"
+                },
+                "application/x-www-form-urlencoded",
+                "Basic dnVlOnZ1ZQ==",
+                true,
+                function (data) {   //successFn
+                    console.log(data);
+                    var token = data.access_token;
+                    //已学课程
+                    ajax(
+                        "GET",
+                        url + "/api/onlinestudy/OsStatistics/getStudyNum",
+                        "json",
+                        null,
+                        "application/x-www-form-urlencoded",
+                        "Bearer " + token,
+                        true,
+                        function (data) {
+                            console.log("已学课程" + data)
+                            already_C.innerHTML = data;
+                        }
+                    )
+                    //已学时长
+                    ajax(
+                        "GET",
+                        url + "/api/onlinestudy/OsStatistics/getStudyTime",
+                        "json",
+                        null,
+                        "application/x-www-form-urlencoded",
+                        "Bearer " + token,
+                        true,
+                        function (data) {
+                            console.log("已学时长" + data)
+                            already_T.innerHTML = data;
+                            if (already_T.innerHTML.length >= 5) {
+                                already_T.style.fontSize = 30 + "px";
+                            }
+                        }
+                    )
+                    //获得积分
+                    ajax(
+                        "GET",
+                        url + "/api/onlinestudy/OsStatistics/getStudyIntegral",
+                        "json",
+                        null,
+                        "application/x-www-form-urlencoded",
+                        "Bearer " + token,
+                        true,
+                        function (data) {
+                            console.log("获得积分" + data)
+                            getScore.innerHTML = data;
+
+                        }
+                    )
+                    //发表心得
+                    ajax(
+                        "GET",
+                        url + "/api/onlinestudy/OsStatistics/getMessageNum",
+                        "json",
+                        null,
+                        "application/x-www-form-urlencoded",
+                        "Bearer " + token,
+                        true,
+                        function (data) {
+                            console.log("发表心得" + data)
+                            sendTips.innerHTML = data;
+
+                        }
+                    )
+                    //我的课程
+                    ajax(
+                        "GET",
+                        url + "/api/onlinestudy/osCourseVideo/selectMyCourse?page=1&limit=10&selectType=1",
+                        "json",
+                        null,
+                        "application/x-www-form-urlencoded",
+                        "Bearer " + token,
+                        true,
+                        function (data) {       //successFn
+                            var myClass = document.getElementById("myClass");
+                            console.log(data.data.rows)
+                            var classList = data.data.rows;
+                            for (var i = 0; i < classList.length; i++) {
+                                var aLi = document.createElement("li");
+                                aLi.setAttribute("courseId",classList[i].courseId);
+                                aLi.innerHTML =
+                                    "<div class='imgBox'>" +
+                                    "<img src='" + classList[i].coursePic + "'>" +
+                                    "</div>" +
+                                    "<p class='C_name'>" + classList[i].courseName + "</p>";
+                                $(document).on("click", "#myClass>li", function () {
+                                    var index = $("#myClass>li").index(this);
+                                    window.location.href = "video.html?courseId=" + classList[index].courseId;
+                                })
+                                myClass.appendChild(aLi);
+
+                            }
+
+                        },
+
+                    )
+                    //学习记录
+                    // ajax(
+                    //     "GET",
+                    //     url + "/api/onlinestudy/osCourseRecord/selectThreeCourse",
+                    //     "json",
+                    //     null,
+                    //     "application/x-www-form-urlencoded",
+                    //     "Bearer " + token,
+                    //     function (data) {     //successFn
+                    //         var studyHistory = document.getElementById("studyHistory");
+                    //         console.log(data)
+                    //         var classList = data;
+                    //         for (var i = 0; i < classList.length; i++) {
+                    //             var aLi = document.createElement("li");
+                    //             aLi.innerHTML =
+                    //                 "<div class='imgBox'>" +
+                    //                 "<img src='" + classList[i].coursePic + "'>" +
+                    //                 "</div>" +
+                    //                 "<p class='C_name'>" + classList[i].courseName + "</p>";
+                    //             $(document).on("click", "#studyHistory>li", function () {
+                    //                 var index = $("#studyHistory>li").index(this);
+                    //                 var videoUrl = ""+classList[index].courseAddress;
+                    //                 window.location.href = videoUrl;
+                    //             })
+                    //             studyHistory.appendChild(aLi);
+
+                    //         }
+
+                    //     },
+
+                    // )
+
+                },
+                function (data) {
+                    // alert("错误码:" + data.status);
+                    if (data.status == 0) {
+                        var Error = document.getElementById("error");
+                        var refreshBtn = document.getElementById("refreshBtn")
+                        Error.style.display = "block";
+                        refreshBtn.onclick = function () {
+                            getData();
+                        }
+                    }
+                }
+            )
+        }
+
+
+        // 显示loading。
+        $(document).ajaxStart(function () {
+            $("#loadingDiv").show();
+        });
+
+
+        // 隐藏loading。
+        $(document).ajaxComplete(function () {
+            $("#loadingDiv").fadeOut("fast");
+        });
+    </script>
+</body>
+
+</html>

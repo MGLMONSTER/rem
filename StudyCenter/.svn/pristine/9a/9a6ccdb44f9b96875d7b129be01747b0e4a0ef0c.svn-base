@@ -1,0 +1,71 @@
+#rankBox{
+  width: 95%;
+  height: auto;
+  overflow: hidden;
+  margin: 0 auto;
+  position: relative;
+}
+/* 选项卡 */
+.tabBox{
+  width: 100%;
+  height: 35px;
+  border-bottom: 5px solid rgb(38,49,86);
+  display: flex;
+  flex-flow: nowrap;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+.tabBox .tabBtn{
+  width: 120px;
+  height: 100%;
+  text-align: center;
+  line-height: 35px;
+  border-radius: 5px;
+  background-color: aliceblue;
+  box-sizing: border-box;
+  border: 1px solid #000000;
+}
+.tabBox .active{
+  color: #ffffff;
+  background-color: rgb(38,49,86);
+  border: none;
+}
+/* 排行榜列表 */
+.rankList{
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  margin-top: 30px;
+}
+.rankList li{
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+.rankList li .imgBox{
+  width: 80px;
+  height: 80px;
+  box-sizing: border-box;
+  float: left;
+  overflow: hidden;
+  border: 1px solid #000000;
+  border-radius: 80px;
+  background: -webkit-linear-gradient(white,black); /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(white,black); /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(white,black); /* Firefox 3.6 - 15 */
+  background: linear-gradient(white,black); /* 标准的语法 */
+  text-align: center;
+}
+.rankList li .imgBox .rankNum{
+  font-size: 36px;
+  font-weight: bold;
+  color: #ffffff;
+  line-height: 80px;
+}
+.rankList li .nameBox{
+  width: 80px;
+  height: 80px;
+  float: left;
+  margin-left: 10px;
+}

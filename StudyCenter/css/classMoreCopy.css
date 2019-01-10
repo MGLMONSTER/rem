@@ -1,0 +1,228 @@
+html{
+    height: 100%;
+    width: 100%;
+    background-color: #f6f6f6;
+    font-size: 100px;
+}
+body{
+    height: 100%;
+    width: 100%;
+    max-width: 7.5rem;
+    margin: 0 auto;
+    background-color: #f6f6f6;
+    position: relative;
+    
+}
+
+
+#classBox{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+    font-size: 0.24rem;
+}
+.tabBox{
+    width: 100%;
+    height: 0.9rem;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+    margin-top: 0.3rem;
+    position: relative;
+}
+.tabBox .moveBorder{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 50%;
+    height: 0.06rem;
+    background-color: #C6262E;
+    border-radius: 0.03rem;
+}
+.tabBox .self{
+    width: 50%;
+    height: 100%;
+    text-align: center;
+    line-height: 0.9rem;
+    font-size: 0.32rem;
+    color:#666666;
+}
+.tabBox .active{
+    color: #C6262E;
+}
+/* 课程列表 */
+.classList{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    margin-top: 0.2rem;
+    display: none;
+    box-sizing: border-box;
+    padding: 0 0.36rem;
+}
+.classList li{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    padding: 0.4rem 0;
+    border-bottom: 0.01rem solid #ABABAB;
+}
+.classList li .imgBox{
+    width: 2.9rem;
+    height: 1.7rem;
+    border-radius: 0.06rem;
+    overflow: hidden;
+    background-color: #000000;
+    float: left;
+    box-sizing: border-box;
+    box-shadow:0 0.04rem 0.08rem 0 rgba(138,135,135,0.52);
+}
+.classList li .imgBox img{
+    width: 100%;
+    height: 100%;
+}
+.classList li .r_side{
+    width: 3.63rem;
+    height: auto;
+    overflow: hidden;
+    float: right;
+    position: relative;
+}
+.classList li .r_side .C_tit{
+    width: 100%;
+    height: 0.7rem;
+    text-align: center;
+    margin-top: 0.1rem;
+    overflow: hidden;
+    font-size: 0.28rem;
+    color: #666666;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.classList li .r_side .del{
+    position: absolute;
+    right: 0;
+    width: 1.04rem;
+    height: 0.44rem;
+    box-sizing: border-box;
+    top: 0.46rem;
+    border: 0.02rem solid #cccccc;
+    color: #cccccc;
+    border-radius: 0.04rem;
+    text-align: center;
+    line-height: 0.44rem;
+}
+.classList li .r_side .progress{
+    width: 100%;
+    height: auto;
+    color: #ABABAB;
+    margin: 0.1rem 0;
+}
+.classList li .r_side .progress .pro_txt{
+    font-size: 0.24rem;
+}
+.classList li .r_side .progress .pro_bar{
+    width: 2.24rem;
+    height: 0.06rem;
+    display: inline-block;
+    background:rgba(255,232,233,1);
+    border-radius: 0.03rem;
+    overflow: hidden;
+    position: relative;
+    margin: 0 0.05rem;
+}
+.classList li .r_side .progress .pro_bar .pro_inline{
+    /* width: 80%; */
+    height: 100%;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 0.03rem;
+    background-color: #CE4249;
+}
+.classList li .r_side .progress .pro_percent{
+    font-size: 0.18rem;
+    color: #C6262E;
+}
+.classList li .r_side .study{
+    width: 100%;
+    height: 0.3rem;
+    margin-bottom: 0.1rem;
+    color: #cccccc;
+    overflow: hidden;
+}
+.classList li .r_side .study .stu_time{
+    float: left;
+}
+.classList li .r_side .study .getScore{
+    float: right;
+}
+
+
+/* loading框 */
+#loadingDiv{
+    width: 3rem;
+    height: 1.5rem;
+    border-radius: 0.1rem;
+    top: 50%;
+    left: 50%;
+    margin-left: -1.5rem;
+    margin-top: -0.75rem;
+    background-color: rgba(0,0,0,.5);
+    text-align: center;
+    line-height: 1.5rem;
+    color: wheat;
+    position: fixed;
+    z-index: 9;
+    font-size: 0.32rem;
+}
+#delDiv{
+    width: 3rem;
+    height: 1.5rem;
+    border-radius: 0.1rem;
+    top: 50%;
+    left: 50%;
+    margin-left: -1.5rem;
+    margin-top: -0.75rem;
+    background-color: rgba(0,0,0,.5);
+    text-align: center;
+    line-height: 1.5rem;
+    color: rgb(49, 247, 49);
+    position: fixed;
+    z-index: 9;
+    display: none;
+    font-size: 0.32rem;
+}
+/* 错误页 */
+#error{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 8;
+    background-color: rgb(50,87,117);
+    display: none;
+}
+#error>img{
+    width: 100%;
+    height: auto;
+}
+#error>p{
+    width: 50%;
+    height: 0.5rem;
+    line-height: 0.5rem;
+    margin: 0.5rem auto 0;
+    font-size: 0.24rem;
+    font-weight: bold;
+    background-color: crimson;
+    color: white;
+    text-align: center;
+    box-sizing: border-box;
+    border-radius: 0.5rem;
+    letter-spacing: 0.1rem;
+}

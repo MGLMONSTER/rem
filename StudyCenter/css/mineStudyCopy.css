@@ -1,0 +1,222 @@
+html{
+    height: 100%;
+    width: 100%;
+    background-color: #f6f6f6;
+    font-size: 100px;
+}
+body{
+    height: 100%;
+    width: 100%;
+    max-width: 7.5rem;
+    margin: 0 auto;
+    background-color: #f6f6f6;
+    position: relative;
+    
+}
+#mineBox{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    font-size: 0.24rem;
+    box-sizing: border-box;
+}
+
+/* 顶部学习信息 */
+.studyInfo{
+    width: 100%;
+    height: 2.52rem;
+    background-color: #ffffff;
+
+}
+.studyInfo li{
+    width: 1.55rem;
+    height: 1.3.27rem;
+    float: left;
+    margin-right: 0.2rem;
+    margin-top: 0.6rem;
+}
+.studyInfo li:first-child{
+    margin-left: 0.35rem;
+    background: url("../img/studyCourse.png") no-repeat;
+    background-size: 100%;
+}
+.studyInfo li:nth-child(2){
+    background: url("../img/studyTime.png") no-repeat;
+    background-size: 100%;
+}
+.studyInfo li:nth-child(3){
+    background: url("../img/getScore.png") no-repeat;
+    background-size: 100%;
+}
+.studyInfo li:nth-child(4){
+    background: url("../img/tips.png") no-repeat;
+    background-size: 100%;
+}
+.studyInfo li .num{
+    width: 80%;
+    height: 0.42rem;
+    font-size: 0.32rem;
+    color: #ffffff;
+    line-height: 0.42rem;
+    margin: 0.15rem 0 0 0.15rem;
+}
+.studyInfo li .time{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.studyInfo li .already{
+    width: 80%;
+    height: 0.6rem;
+    color: #ffffff;
+    font-size: 0.28rem;
+    font-weight: bold;
+    line-height: 0.6rem;
+    margin: 0.15rem 0 0 0.15rem;
+}
+/* 分割线 */
+.cutLine{
+    width: 100%;
+    height: 0.2rem;
+    background-color: #f6f6f6;
+}
+/* 我的课程 */
+.mineClass{
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 0.36rem;
+}
+.mineClass .m_title{
+    width: 100%;
+    height: 0.6rem;
+}
+.mineClass .m_title .tit_txt{
+    width: 1.45rem;
+    height: 100%;
+    box-sizing: border-box;
+    float: left;
+    text-align: center;
+    line-height: 0.6rem;
+    color: #333;
+    font-size: 0.36rem;
+}
+.mineClass .m_title .more{
+    float: right;
+    line-height: 0.6rem;
+    font-size: 0.26rem;
+    font-weight:500;
+    color:rgba(171,171,171,1);
+    display: block;
+}
+.mineClass .m_title .more_arrow{
+    width: 0.13rem;
+    height: 0.26rem;
+    float: right;
+    margin-top: 0.15rem;
+    margin-left: 0.1rem;
+    background: url("../img/gengduo.png") no-repeat 100%;
+}
+.mineClass .m_list{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    margin-top: 0.2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.mineClass .m_list li{
+    width: 3.27rem;
+    height: auto;
+    overflow: hidden;
+}
+.mineClass .m_list li .imgBox{
+    width: 100%;
+    height: 1.9rem;
+    margin-bottom: 0.2rem;
+    background-color: #000000;
+    background:rgba(145,145,145,1);
+    box-shadow:0 0.04rem 0.08rem 0 rgba(138,135,135,0.52);
+    border-radius:0.06rem;
+    overflow: hidden;
+}
+.mineClass .m_list li .imgBox>img{
+    width: 100%;
+    height: 100%;
+}
+.mineClass .m_list li .C_name{
+    width: 100%;
+    font-size: 0.2rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    height: 0.3rem;
+    margin-bottom: 0.2rem;
+}
+
+
+/* loading框 */
+#loadingDiv{
+    width: 3rem;
+    height: 1.5rem;
+    border-radius: 0.1rem;
+    top: 50%;
+    left: 50%;
+    margin-left: -1.5rem;
+    margin-top: -0.75rem;
+    background-color: rgba(0,0,0,.5);
+    text-align: center;
+    line-height: 1.5rem;
+    color: wheat;
+    position: fixed;
+    z-index: 9;
+    font-size: 0.32rem;
+}
+#delDiv{
+    width: 3rem;
+    height: 1.5rem;
+    border-radius: 0.1rem;
+    top: 50%;
+    left: 50%;
+    margin-left: -1.5rem;
+    margin-top: -0.75rem;
+    background-color: rgba(0,0,0,.5);
+    text-align: center;
+    line-height: 1.5rem;
+    color: rgb(49, 247, 49);
+    position: fixed;
+    z-index: 9;
+    display: none;
+    font-size: 0.32rem;
+}
+/* 错误页 */
+#error{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 8;
+    background-color: rgb(50,87,117);
+    display: none;
+}
+#error>img{
+    width: 100%;
+    height: auto;
+}
+#error>p{
+    width: 50%;
+    height: 0.5rem;
+    line-height: 0.5rem;
+    margin: 0.5rem auto 0;
+    font-size: 0.24rem;
+    font-weight: bold;
+    background-color: crimson;
+    color: white;
+    text-align: center;
+    box-sizing: border-box;
+    border-radius: 0.5rem;
+    letter-spacing: 0.1rem;
+}

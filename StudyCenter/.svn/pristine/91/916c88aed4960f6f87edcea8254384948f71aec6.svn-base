@@ -1,0 +1,139 @@
+#classBox{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+    padding: 0 10px;
+}
+.tabBox{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+    border-bottom: 4px solid rgb(38,49,86);
+    margin-top: 30px;
+}
+.tabBox .self{
+    width: 160px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    border-radius: 10px;
+    background-color: #cccccc;
+    border: 1px solid #000000;
+}
+.tabBox .active{
+    background-color: rgb(43,64,115);
+    color: #ffffff;
+    border: none;
+}
+/* 课程列表 */
+.classList{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    margin-top: 20px;
+    display: none;
+}
+.classList li{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+.classList li .imgBox{
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    background-color: #000000;
+    float: left;
+    box-sizing: border-box;
+    padding: 10px 0;
+}
+.classList li .imgBox img{
+    width: 100%;
+    height: 100%;
+}
+.classList li .r_side{
+    width: 480px;
+    height: auto;
+    overflow: hidden;
+    float: right;
+}
+.classList li .r_side .C_tit{
+    width: 420px;
+    height: 40px;
+    margin: 0 auto;
+    border-radius: 40px;
+    text-align: center;
+    line-height: 40px;
+    border: 1px solid blue;
+    margin-top: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.classList li .r_side .progress{
+    width: 100%;
+    height: auto;
+    color: #cccccc;
+    margin: 10px 0;
+}
+.classList li .r_side .progress .pro_bar{
+    width: 320px;
+    height: 10px;
+    display: inline-block;
+    background-color: #cccccc;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    margin: 0 20px;
+}
+.classList li .r_side .progress .pro_bar .pro_inline{
+    /* width: 80%; */
+    height: 100%;
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 10px;
+    background-color: rgb(64,158,255);
+}
+.classList li .r_side .study{
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+    color: #cccccc;
+    overflow: hidden;
+}
+.classList li .r_side .study .stu_time{
+    float: left;
+}
+.classList li .r_side .study .getScore{
+    float: right;
+}
+.classList li .r_side .operation{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    margin-top: 15px;
+}
+.classList li .r_side .operation .op_btn{
+    width: 140px;
+    height: 40px;
+    border-radius: 40px;
+    border: 1px solid #000000;
+    text-align: center;
+    line-height: 40px;
+    box-shadow: 5px 5px 10px #cccccc;
+}
+.classList li .r_side .operation .del{
+    background-color: red;
+    color: #ffffff;
+    border: none;
+}

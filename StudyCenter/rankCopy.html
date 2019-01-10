@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/rankCopy.css">
+  <script src="js/jquery-1.8.3.min.js"></script>
+  <script src="js/rem.js"></script>
+  <title>答题排行榜</title>
+</head>
+
+<body>
+  <div id='loadingDiv'>加载中,请稍后...</div>
+  <div id="rankBox">
+    <!-- 选项卡 -->
+    <div class="tabBox">
+      <div class="tabBtn active">个人</div>
+      <div class="tabBtn">党支部</div>
+      <span class="moveBorder"></span>
+    </div>
+    <!-- 排行榜列表 -->
+    <ul id="rankList" class="rankList" style="display:block;">
+      <!-- <li> -->
+      <!-- <div id="imgBox" class="imgBox">
+          <img id="rankImg" src="img/first.jpg" alt="">
+          <p id="rankNum" class="rankNum">1</p>
+        </div>
+        <div class="nameBox">
+          <p id="name" class="name">万晓梅</p>
+          <p class="score">
+            <span class="answerNum">答题数量: 100道</span>
+            <span class="sumScore">分数: 100分</span>
+          </p>
+        </div> -->
+      <!-- <div class="topicBox">
+          <div class="rightTopic">
+            <img src="img/u170.png" alt="">
+            <span class="rightTxt">94题</span>
+          </div>
+          <div class="wrongTopic">
+            <img src="img/u173.png" alt="">
+            <span class="wrongTxt">81题</span>
+          </div>
+        </div> -->
+      <!-- <div class="AqInfo">
+          <p>
+            <span>答题次数: 5次</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span>最近答题时间: 2018/09/07 09:08:08</span>
+          </p>
+          <p>
+            <span>平均用时:3439秒</span>&nbsp;&nbsp;&nbsp;&nbsp;
+            <span>更新时间:2018/09/07 09:08:08</span>
+          </p>
+        </div> -->
+
+      <!-- </li> -->
+    </ul>
+
+    <ul id="deptRankList" class="rankList">
+
+    </ul>
+
+  </div>
+  <!-- 错误页 -->
+  <div id="error">
+    <img src="img/error.gif" alt="">
+    <p id="refreshBtn">
+      点&nbsp;击&nbsp;刷&nbsp;新
+    </p>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script>
+
+    $(function () {
+      getData();
+    });
+
+    var page = 1;     //初始化页数(全局个人)
+    var deptPage = 1; //初始化页数(全局党支部)
+    var timers = null;   //初始化定时器(全局)
+
+
+    //选项卡
+    $(function () {
+      var tabBtn = document.getElementsByClassName("tabBtn");
+      var tabList = document.getElementsByClassName("rankList");
+      var moveBorder = document.getElementsByClassName("moveBorder")[0];
+      var liWidth = tabBtn[0].offsetWidth;
+
+      for (var i = 0; i < tabBtn.length; i++) {
+        tabBtn[i].index = i;
+        tabBtn[i].onclick = function () {
+          for (var j = 0; j < tabList.length; j++) {
+            tabBtn[j].classList.remove("active");
+            tabList[j].style.display = "none";
+          }
+          this.classList.add("active");
+          tabList[this.index].style.display = "block";
+          var cnt = this.index;
+
+          animate(moveBorder, cnt * liWidth);
+
+
+          var deptRank = document.getElementsByClassName('active')[0];
+          if (deptRank.innerHTML == "党支部") {
+            getDeptRank();
+          }
+        }
+      };
+
+
+      // 缓动动画封装
+      function animate(element, target) {
+        // 清除间歇调用
+        clearInterval(element.timer);
+        // 设置超时调用
+        element.timer = setInterval(function () {
+          // 设置步数
+          var step = (target - element.offsetLeft) / 10;
+          // 调整步数
+          step = step > 0 ? Math.ceil(step) : Math.floor(step);
+          // 设置样式
+          element.style.left = element.offsetLeft + step + "px";
+          // console.log(1);
+          if (Math.abs(target - element.offsetLeft) < Math.abs(step)) {
+            element.style.left = target + "px";
+            clearInterval(element.timer);
+          }
+        }, 20);
+      }
+    })
+
+    //上拉加载
+    $(window).scroll(function () {
+      //当时滚动条离底部60px时开始加载下一页的内容
+      if (($(window).height() + $(window).scrollTop() + 60) >= $(document).height()) {
+        clearTimeout(timers);
+        timers = setTimeout(function () {
+
+          var deptRank = document.getElementsByClassName('active')[0];
+          if (deptRank.innerHTML == "党支部") {
+            deptPage++;
+            getDeptRank();
+          }else{
+            page++;
+            getData();
+          }
+          
+          // console.log("第" + page + "页");
+        }, 300);
+      }
+    });
+
+
+    //个人排行
+    function getData() {
+
+      var username = JSON.parse(localStorage.getItem('username'));
+      var password = JSON.parse(localStorage.getItem('password'));
+
+      //登录接口
+      ajax(
+        "POST",
+        url + "/api/auth/oauth/token",
+        "json",
+        {
+          "username": username,
+          "password": password,
+          "grant_type": "password"
+        },
+        "application/x-www-form-urlencoded",
+        "Basic dnVlOnZ1ZQ==",
+        true,
+        function (data) {
+          console.log(data);
+          var token = data.access_token;
+          ajax(
+            "GET",
+            url + "/api/onlinestudy/osExamScope/selectPersonRank?page=" + page + "&limit=10",
+            "json",
+            null,
+            "application/x-www-form-urlencoded",
+            "Bearer " + token,
+            true,
+            function (data) {   //successFn
+              var rankList = document.getElementById("rankList");
+              console.log(data.data.rows);
+              var rankInfo = data.data.rows;
+              for (var i = 0; i < rankInfo.length; i++) {
+                var aLi = document.createElement("li");
+
+
+                // 前三图
+                var imgBox = document.createElement("div");
+                imgBox.classList.add("imgBox");
+                var imgBox_img = document.createElement("img");
+                var rankNum = document.createElement("p");
+                rankNum.classList.add("rankNum");
+                rankNum.innerHTML = rankInfo[i].index;
+                imgBox.appendChild(imgBox_img);
+                imgBox.appendChild(rankNum);
+
+                //更换前三的图片
+                if (rankInfo[i].index == 1) {
+                  imgBox_img.src = "img/first.jpg";
+                  rankNum.style.display = "none";
+                } else if (rankInfo[i].index == 2) {
+                  imgBox_img.src = "img/secound.jpg";
+                  rankNum.style.display = "none";
+                } else if (rankInfo[i].index == 3) {
+                  imgBox_img.src = "img/third.jpg";
+                  rankNum.style.display = "none";
+                } else {
+                  imgBox_img.style.display = "none";
+                  rankNum.style.display = "block";
+                };
+
+
+
+
+                // 姓名
+                var nameBox = document.createElement("div");
+                nameBox.classList.add("nameBox");
+                var name = document.createElement("p");
+                name.classList.add("name");
+                name.innerHTML = rankInfo[i].name;
+                // if (rankInfo[i].name >= 4) {
+                //   name.style.fontSize = 16 + "px";
+                // }
+                var score = document.createElement("p");
+                score.classList.add("score");
+                score.innerHTML = "<span class='answerNum'>答题数量: "
+                  + Number(rankInfo[i].yesCount + rankInfo[i].errorCount) + "道"
+                  + "</span>"
+                  + "<span class='sumScore'>分数: "
+                  + rankInfo[i].sumScore*5 + "分"
+                  + "</span>";
+                nameBox.appendChild(name);
+                nameBox.appendChild(score);
+
+                aLi.appendChild(imgBox);
+                aLi.appendChild(nameBox);
+                rankList.appendChild(aLi);
+
+              }
+
+            },
+
+          )
+
+        },
+        function (data) {
+          // alert("错误码:" + data.status);
+          if (data.status == 0) {
+            var Error = document.getElementById("error");
+            var refreshBtn = document.getElementById("refreshBtn")
+            Error.style.display = "block";
+            refreshBtn.onclick = function () {
+              getData();
+            }
+          }
+        }
+      );
+
+    }
+
+    //党支部排行
+    function getDeptRank() {
+
+      var username = JSON.parse(localStorage.getItem('username'));
+      var password = JSON.parse(localStorage.getItem('password'));
+
+      //登录接口
+      ajax(
+        "POST",
+        url + "/api/auth/oauth/token",
+        "json",
+        {
+          "username": username,
+          "password": password,
+          "grant_type": "password"
+        },
+        "application/x-www-form-urlencoded",
+        "Basic dnVlOnZ1ZQ==",
+        true,
+        function (data) {
+          console.log(data);
+          var token = data.access_token;
+          ajax(
+            "GET",
+            url + "/api/onlinestudy/osExamScope/selectOrgRank?page=" + deptPage + "&limit=10",
+            "json",
+            null,
+            "application/x-www-form-urlencoded",
+            "Bearer " + token,
+            true,
+            function (data) {   //successFn
+              var deptRankList = document.getElementById("deptRankList");
+              console.log(data.data.rows);
+              var rankInfo = data.data.rows;
+              for (var i = 0; i < rankInfo.length; i++) {
+                var aLi = document.createElement("li");
+
+
+                // 前三图
+                var imgBox = document.createElement("div");
+                imgBox.classList.add("imgBox");
+                var imgBox_img = document.createElement("img");
+                var rankNum = document.createElement("p");
+                rankNum.classList.add("rankNum");
+                rankNum.innerHTML = rankInfo[i].index;
+                imgBox.appendChild(imgBox_img);
+                imgBox.appendChild(rankNum);
+
+                //更换前三的图片
+                if (rankInfo[i].index == 1) {
+                  imgBox_img.src = "img/first.jpg";
+                  rankNum.style.display = "none";
+                } else if (rankInfo[i].index == 2) {
+                  imgBox_img.src = "img/secound.jpg";
+                  rankNum.style.display = "none";
+                } else if (rankInfo[i].index == 3) {
+                  imgBox_img.src = "img/third.jpg";
+                  rankNum.style.display = "none";
+                } else {
+                  imgBox_img.style.display = "none";
+                  rankNum.style.display = "block";
+                };
+
+
+
+
+                // 姓名
+                var nameBox = document.createElement("div");
+                nameBox.classList.add("nameBox");
+                var name = document.createElement("p");
+                name.classList.add("name");
+                name.innerHTML = rankInfo[i].orgName;
+                // if (rankInfo[i].name >= 4) {
+                //   name.style.fontSize = 16 + "px";
+                // }
+                var score = document.createElement("p");
+                score.classList.add("score");
+                score.innerHTML = "<span class='answerNum'>总人数: "
+                  + rankInfo[i].countPeople + "人"
+                  + "</span>"
+                  + "<span class='sumScore'>平均分: "
+                  + rankInfo[i].avgScore + "分"
+                  + "</span>";
+                nameBox.appendChild(name);
+                nameBox.appendChild(score);
+
+                aLi.appendChild(imgBox);
+                aLi.appendChild(nameBox);
+                deptRankList.appendChild(aLi);
+
+              }
+            },
+
+          )
+
+        },
+        function (data) {
+          // alert("错误码:" + data.status);
+          if (data.status == 0) {
+            var Error = document.getElementById("error");
+            var refreshBtn = document.getElementById("refreshBtn")
+            Error.style.display = "block";
+            refreshBtn.onclick = function () {
+              getData();
+            }
+          }
+        }
+      );
+
+    }
+
+
+
+
+    // 显示loading。
+    $(document).ajaxStart(function () {
+      $("#loadingDiv").show();
+    });
+
+
+    // 隐藏loading。
+    $(document).ajaxComplete(function () {
+      $("#loadingDiv").fadeOut("fast");
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=750, user-scalable=no">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/studyHistory.css">
+  <script src="js/jquery-1.8.3.min.js"></script>
+  <title>学习记录</title>
+</head>
+<body>
+  <div id="studyH_box">
+    <!-- 学习记录列表 -->
+    <ul class="studyH_list"> 
+      <li>
+        <div class="imgBox">
+          <img src="" alt="">
+        </div>
+        <div class="r_side">
+          <p class="S_tit">
+            02.科学掌握习近平总书记系列重要讲话的思想真谛下
+          </p>
+          <!-- <div class="v_info">
+            <p class="author">作者:学习平台教学</p>
+            <p class="tag">标签:重要讲话</p>
+          </div>
+          <div class="studyInfo">
+            <p class="studyNum"></p>
+            <p class="score"></p>
+            <p class="already"></p>
+          </div> -->
+          <p class="continueBtn">继续学习</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>

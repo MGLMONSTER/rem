@@ -1,0 +1,138 @@
+#mineBox{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    /* padding: 0 10px; */
+    box-sizing: border-box;
+}
+
+/* 顶部学习信息 */
+.studyInfo{
+    width: 100%;
+    height: 252px;
+    background-color: #ffffff;
+
+}
+.studyInfo li{
+    width: 155px;
+    height: 133px;
+    float: left;
+    margin-right: 20px;
+    margin-top: 60px;
+}
+.studyInfo li:first-child{
+    margin-left: 35px;
+    background: url("../img/studyCourse.png") no-repeat;
+}
+.studyInfo li:nth-child(2){
+    background: url("../img/studyTime.png") no-repeat;
+}
+.studyInfo li:nth-child(3){
+    background: url("../img/getScore.png") no-repeat;
+}
+.studyInfo li:nth-child(4){
+    background: url("../img/tips.png") no-repeat;
+}
+.studyInfo li .num{
+    width: 80%;
+    height: 42px;
+    font-size: 32px;
+    color: #ffffff;
+    line-height: 42px;
+    margin: 15px 0 0 15px;
+}
+.studyInfo li .time{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.studyInfo li .already{
+    width: 80%;
+    height: 60px;
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 60px;
+    margin: 15px 0 0 15px;
+}
+/* 分割线 */
+.cutLine{
+    width: 100%;
+    height: 20px;
+    background-color: #f6f6f6;
+}
+/* 我的课程 */
+.mineClass{
+    width: 100%;
+    height: auto;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 36px;
+}
+.mineClass .m_title{
+    width: 100%;
+    height: 60px;
+}
+.mineClass .m_title .tit_txt{
+    width: 145px;
+    height: 100%;
+    box-sizing: border-box;
+    float: left;
+    text-align: center;
+    line-height: 60px;
+    color: #333;
+    font-size: 36px;
+}
+.mineClass .m_title .more{
+    float: right;
+    line-height: 60px;
+    font-size: 26px;
+    font-weight:500;
+    color:rgba(171,171,171,1);
+    display: block;
+}
+.mineClass .m_title .more_arrow{
+    width: 13px;
+    height: 26px;
+    float: right;
+    margin-top: 15px;
+    margin-left: 10px;
+    background: url("../img/gengduo.png");
+}
+.mineClass .m_list{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.mineClass .m_list li{
+    width: 327px;
+    height: auto;
+    overflow: hidden;
+}
+.mineClass .m_list li .imgBox{
+    width: 100%;
+    height: 190px;
+    margin-bottom: 20px;
+    background-color: #000000;
+    background:rgba(145,145,145,1);
+    box-shadow:0px 4px 8px 0px rgba(138,135,135,0.52);
+    border-radius:6px;
+    overflow: hidden;
+}
+.mineClass .m_list li .imgBox>img{
+    width: 100%;
+    height: 100%;
+}
+.mineClass .m_list li .C_name{
+    width: 100%;
+    font-size: 20px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    height: 30px;
+    margin-bottom: 20px;
+}

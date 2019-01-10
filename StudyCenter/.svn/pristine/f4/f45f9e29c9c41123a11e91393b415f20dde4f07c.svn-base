@@ -1,0 +1,61 @@
+var url = "http://116.117.157.186:10001";
+
+
+function ajax(type, url, dataType, data, contentType, Authorization, succsFn, errorFn) {
+  $.ajax({
+    type: type,
+    url: url,
+    dataType: dataType,
+    data: data,
+    contentType: contentType,
+    headers: {
+      "Authorization": Authorization
+    },
+    success: function (data) {
+      succsFn(data)
+    },
+    error: function (data) {
+      errorFn(data)
+    }
+  })
+}
+
+
+//写cookies，一个小时过期 
+function setCookie(name, value) {
+  var exp = new Date();
+  exp.setTime(exp.getTime() + 60 * 60 * 1000);
+  document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString() + ";path=/";
+}
+
+
+//读取cookies 
+function getCookie(name) {
+  var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+
+  if (arr = document.cookie.match(reg)) {
+    return unescape(arr[2]);
+  } else {
+    return null;
+  }
+}
+
+
+
+// var loadingHtml = "<div id='loadingDiv'>加载中,请稍后...</div>";
+// document.write(loadingHtml);
+
+// window.onload = function () {
+//   //监听加载状态改变
+//   document.onreadystatechange = completeLoading;
+//   //加载状态为complete时移除loading效果
+//   function completeLoading() {
+//     if (document.readyState == "complete") {
+//       var loadingMask = document.getElementById('loadingDiv');
+//       loadingMask.parentNode.removeChild(loadingMask);
+//       loadingMask.style.display = "none";
+//     } else {
+//       loadingMask.style.display = "block";
+//     }
+//   }
+// }

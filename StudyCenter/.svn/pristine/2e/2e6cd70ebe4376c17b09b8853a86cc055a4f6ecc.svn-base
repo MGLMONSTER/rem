@@ -1,0 +1,152 @@
+#rankBox{
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  position: relative;
+  /* padding: 0 10px; */
+  box-sizing: border-box;
+}
+/* 选项卡 */
+.tabBox{
+  width: 100%;
+  height: 90px;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: nowrap;
+  box-sizing: border-box;
+  margin-top: 30px;
+  position: relative;
+}
+.tabBox .moveBorder{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 50%;
+  height: 6px;
+  background-color: #C6262E;
+  border-radius: 3px;
+}
+.tabBox .tabBtn{
+  width: 50%;
+  height: 100%;
+  text-align: center;
+  line-height: 90px;
+  font-size: 32px;
+  color:#666666;
+}
+.tabBox .active{
+  color: #C6262E;
+}
+/* 排行榜列表 */
+.rankList{
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  margin-top: 30px;
+  display: none;
+  padding: 0 36px;
+  box-sizing: border-box;
+}
+.rankList li{
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  padding: 40px 0 30px;
+  border-bottom: 1px solid #E5E5E5;
+}
+.rankList li .imgBox{
+  width: 36px;
+  height: 102px;
+  box-sizing: border-box;
+  float: left;
+  overflow: hidden;
+  text-align: center;
+  margin-top: 32px;
+}
+.rankList li .imgBox img{
+  width: 100%;
+  height: auto;
+}
+.rankList li .imgBox .rankNum{
+  font-size: 40px;
+  color: #C6262E;
+  line-height: 50px;
+}
+.rankList li .nameBox{
+  width: calc(100% - 72px);
+  height: 102px;
+  float: left;
+  margin-left: 20px;
+}
+.rankList li .nameBox .name{
+  width: 100%;;
+  height: 30px;
+  line-height: 30px;
+  overflow: hidden;
+  font-size: 28px;
+  color: #333333;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-bottom: 8px;
+  margin-top: 5px;
+}
+.rankList li .nameBox .score{
+  width: 100%;
+  height: 30px;
+  box-sizing: border-box;
+  line-height: 30px;
+  color: #ABABAB;
+  font-size: 24px;
+  margin-top: 34px;
+}
+.rankList li .nameBox .score .answerNum{
+  float: left;
+}
+.rankList li .nameBox .score .sumScore{
+  float: right;
+}
+.rankList li .topicBox{
+  width: 100px;
+  height: 80px;
+  float: left;
+  margin-left: 10px;
+}
+.rankList li .topicBox .rightTopic,.wrongTopic{
+  width: 100%;
+  height: 50%;
+}
+.rankList li .topicBox .rightTopic img{
+  width: 40px;
+  height: 100%;
+  display: inline-block;
+  vertical-align: middle;
+}
+.rankList li .topicBox .rightTopic .rightTxt{
+  color: green;
+  line-height: 40px;
+  font-size: 18px;
+}
+.rankList li .topicBox .wrongTopic img{
+  width: 40px;
+  height: 100%;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.rankList li .topicBox .wrongTopic .wrongTxt{
+  color: red;
+  line-height: 40px;
+  font-size: 18px;
+}
+.rankList li .AqInfo{
+  width: 420px;
+  height: auto;
+  float: left;
+  margin-left: 10px;
+}
+.rankList li .AqInfo p{
+  width: 100%;
+  height: 50%;
+  color: #333333;
+  font-size: 18px;
+}
